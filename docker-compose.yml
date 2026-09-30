@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # Isolated container dedicated to User 1
+  user-1-worker:
+    build: .
+    image: eportal-automation:latest
+    container_name: eportal-user1
+    environment:
+      - TARGET_USER_ID=user_1
+      - HEADLESS=true
+      - KEEP_IDLE=false
+      - SCREENSHOT_DIR=/app/screenshots
+    volumes:
+      - ./screenshots:/app/screenshots
+    shm_size: '1gb'
+    restart: "no"
+
+  # Isolated container dedicated to User 2
+  user-2-worker:
+    build: .
+    image: eportal-automation:latest
+    container_name: eportal-user2
+    environment:
+      - TARGET_USER_ID=user_2
+      - HEADLESS=true
+      - KEEP_IDLE=false
+      - SCREENSHOT_DIR=/app/screenshots
+    volumes:
+      - ./screenshots:/app/screenshots
+    shm_size: '1gb'
+    restart: "no"
